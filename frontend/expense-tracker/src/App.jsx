@@ -5,36 +5,40 @@ import {
   Route,
   Navigate
 } from "react-router-dom";
+import UserProvider from './context/userContext'
 import Login from './pages/Auth/Login';
-import SignUp  from "./pages/Auth/SignUp";
+import SignUp from "./pages/Auth/SignUp";
 import Home from "./pages/Dashboard/Home";
 import Income from './pages/Dashboard/Income';
 import Expense from './pages/Dashboard/Expense';
 const App = () => {
-  return(
-    <div>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Root/>}/>
-          <Route path="/login" exact element={<Login/>}/>
-          <Route path="/signup" element={<SignUp/>}/>
-          <Route path="/dashboard" element={<Home/>}/>
-          <Route path="/income" element={<Income/>}/>
-          <Route path="/expense" element={<Expense/>}/>
-        </Routes>
-      </Router>
-    </div>
+  return (
+    <UserProvider>
+      <div>
+
+        <Router>
+          <Routes>
+            <Route path="/" element={<Root />} />
+            <Route path="/login" exact element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/dashboard" element={<Home />} />
+            <Route path="/income" element={<Income />} />
+            <Route path="/expense" element={<Expense />} />
+          </Routes>
+        </Router>
+      </div>
+    </UserProvider>
   )
 }
 
 export default App
 
-const Root = () =>{
+const Root = () => {
   const isAuthenticated = !!localStorage.getItem("token");
-  return isAuthenticated ?(
-    <Navigate to = "/dashboard"/>
+  return isAuthenticated ? (
+    <Navigate to="/dashboard" />
   ) : (
-    <Navigate to = "/login"/>
+    <Navigate to="/login" />
   )
 
 
