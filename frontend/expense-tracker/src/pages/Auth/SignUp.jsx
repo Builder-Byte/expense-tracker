@@ -22,10 +22,7 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    if (!profilePic) {
-      setError("Please upload your image");
-      return;
-    }
+    
 
     if (!validateEmail(email)) {
       setError("Please enter a valid email address");
