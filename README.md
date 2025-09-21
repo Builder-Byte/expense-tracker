@@ -17,6 +17,12 @@ A full-stack expense and income tracker web application built with Node.js, Expr
 - **Database:** MongoDB
 - **Other:** Axios, Moment.js
 
+### Demo Login 
+```
+Email: john@example.com
+Password: 123456
+```
+
 ## Folder Structure
 ```
 backend/
