@@ -27,6 +27,13 @@ app.use(express.json());
 
 connectDB();
 
+
+// Health check endpoint
+app.get("/api/v1/health", (req, res) => {
+  // You can add more checks here (e.g., DB connection status)
+  res.status(200).json({ status: "ok" });
+});
+
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/income", incomeRoutes);
 app.use("/api/v1/expense", expenseRoutes);

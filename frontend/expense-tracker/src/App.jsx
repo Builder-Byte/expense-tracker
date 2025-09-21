@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -12,11 +12,30 @@ import Home from "./pages/Dashboard/Home";
 import Income from './pages/Dashboard/Income';
 import Expense from './pages/Dashboard/Expense';
 import {Toaster} from "react-hot-toast";
+import Loader from './components/Loader';
+
 const App = () => {
+  const [backendReady, setBackendReady] = useState(false);
+  useEffect(() => {
+    const checkHealth = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL || 'https://expense-tracker-1-p35i.onrender.com'}/api/v1/health`
+        );
+        const data = await res.json();
+        if (data.status === 'ok') setBackendReady(true);
+      } catch {
+        setBackendReady(false);
+      }
+    };
+    checkHealth();
+  }, []);
+
+  if (!backendReady) return <Loader />;
+
   return (
     <UserProvider>
       <div>
-
         <Router>
           <Routes>
             <Route path="/" element={<Root />} />
@@ -28,20 +47,16 @@ const App = () => {
           </Routes>
         </Router>
       </div>
-
       <Toaster
         toastOptions={{
-          className:"",
-          style:{
+          className: "",
+          style: {
             fontSize: "13px"
           },
         }}
       />
-
-
-
     </UserProvider>
-  )
+  );
 }
 
 export default App
@@ -53,6 +68,4 @@ const Root = () => {
   ) : (
     <Navigate to="/login" />
   )
-
-
 }
